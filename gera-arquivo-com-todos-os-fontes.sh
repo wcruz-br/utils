@@ -14,9 +14,9 @@ fi
 # Limpa o arquivo de saída
 true > "$OUTPUT_FILE"
 
-echo "Procurando arquivos .py, .js, .json, .html, .css, .yaml, .yml e Dockerfile no diretório atual e subdiretórios..."
+echo "Procurando arquivos .py, .js, .json, .html, .css, .yaml, .yml, .sh e Dockerfile no diretório atual e subdiretórios..."
 # Gera um arquivo com todos os fontes, ignorando diretórios ocultos (que começam com .)
-find . -path '*/.*' -prune -o \( -name "*.py" -o -name "*.js" -o -name "*.json" -o -name "*.yaml" -o -name "*.yml" -o -name "*.html" -o -name "*.css" -o -name "Dockerfile" \) -type f ! -path "*/__pycache__/*" ! -path "*/node_modules/*" ! -path "*/dist*/*" -exec sh -c '{ echo "----- $1 -----"; cat "$1"; echo ""; } >> "$2"' _ {} "$OUTPUT_FILE" \;
+find . -path '*/.*' -prune -o \( -name "*.py" -o -name "*.js" -o -name "*.json" -o -name "*.yaml" -o -name "*.yml" -o -name "*.html" -o -name "*.css" -o -name "*.sh" -o -name "Dockerfile" \) -type f ! -path "*/__pycache__/*" ! -path "*/node_modules/*" ! -path "*/dist*/*" -exec sh -c '{ echo "----- $1 -----"; cat "$1"; echo ""; } >> "$2"' _ {} "$OUTPUT_FILE" \;
 
 echo "Verificando arquivos de configuração..."
 
