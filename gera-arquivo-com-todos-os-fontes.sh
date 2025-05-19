@@ -68,12 +68,22 @@ if [ "$1" == "--help" ]; then
     exit 0
 fi
 
-# Analisa as opções da linha de comando (incluindo -? e -x)
-while getopts "ho:d:m:x:?" opt; do
+# Analisa as opções da linha de comando
+while getopts "h?o:d:m:x:" opt; do
     case $opt in
-        h|\?) # Trata -h e -?
+        h)  # Trata -h
             show_help
             exit 0
+            ;;
+        \?) # Trata -? e opções inválidas
+            if [ "$OPTARG" = "?" ]; then
+                show_help
+                exit 0
+            else
+                echo "Erro: Opção inválida: -$OPTARG" >&2
+                show_help
+                exit 1
+            fi
             ;;
         o)
             output_file="$OPTARG"
@@ -89,11 +99,6 @@ while getopts "ho:d:m:x:?" opt; do
             ;;
         :)
             echo "Erro: Opção -$OPTARG requer um argumento." >&2
-            show_help
-            exit 1
-            ;;
-        \?)
-            echo "Erro: Opção inválida: -$OPTARG" >&2
             show_help
             exit 1
             ;;
